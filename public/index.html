@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Bulma!</title>
+  <link rel="stylesheet" href="css/bulma.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item is-active" href="index.html">
+      Home
+    </a>
+    <a class="navbar-item" href="admin.html">
+      Admin
+    </a>
+  </div>
+</nav>
+<main class="section">
+  <div class="container">
+    <h1 class="title">
+      Books for Sale
+    </h1>
+    <p class="subtitle">
+      Special offer! All the books are free!
+    </p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>ISBN</th>
+      <th>Year</th>
+      <th>Publisher</th>
+      <th>Quantity</th>
+      <th>Order</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Guy Fieri Food</td>
+      <td>Guy Fieri</td>
+      <td>9780062079305</td>
+      <td>2011</td>
+      <td>HarperCollins</td>
+      <td><input id="q1" type="text" class="input is-small quantity-input"/></td>
+      <td><button id="b1" class="button is-primary is-small">Order</button></td>
+    </tr>
+    <tr>
+      <td>Guy Fieri Family Food</td>
+      <td>Guy Fieri</td>
+      <td>9780062244741</td>
+      <td>2016</td>
+      <td>HarperCollins</td>
+      <td><input id="q2" type="text" class="input is-small quantity-input"/></td>
+      <td><button id="b2" class="button is-primary is-small">Order</button></td>
+    </tr>
+    <tr>
+      <td>Diners, Drive-ins and Dives</td>
+      <td>Guy Fieri</td>
+      <td>9780061964503</td>
+      <td>2008</td>
+      <td>HarperCollins</td>
+      <td><input id="q3" type="text" class="input is-small quantity-input"/></td>
+      <td><button id="b3" class="button is-primary is-small">Order</button></td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+</main>
+</body>
+</html>

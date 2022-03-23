@@ -1,5 +1,5 @@
 {
-  "name": "express-redis",
+  "name": "seng-468-a3-njanke",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,10 +7,8 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "Hugo Di Francesco",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.16.3",
-    "redis": "^3.0.2"
+    "redis": "^4.0.4"
   }
 }
