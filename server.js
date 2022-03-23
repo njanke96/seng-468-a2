@@ -8,16 +8,27 @@ app.use(express.json());
 
 app.post('/orders/submit', async (req, res) => {
   // last order info for the order confirmation page
+  const timestamp = Math.floor(new Date().getTime() / 1000);
   await redis.client.connect();
   await redis.client.incr('last_order_id');
   await redis.client.set('last_order_isbn', req.body.isbn);
   await redis.client.set('last_order_title', req.body.title);
   await redis.client.set('last_order_author', req.body.author);
   await redis.client.set('last_order_quantity', '' + req.body.quantity);
-  await redis.client.set('last_order_timestamp', '' + Math.floor(new Date().getTime() / 1000));
-  await redis.client.quit();
+  await redis.client.set('last_order_timestamp', '' + timestamp);
 
-  // TODO: cache the order itself
+
+  // cache the order itself
+  // cached orders are strings of the format id;;isbn;;title;;author;;quantity;;timestamp
+  const id = await redis.client.get('last_order_id');
+  await redis.client.sendCommand([
+    'ZADD',
+    'orders',
+    timestamp.toString(),
+    `${id};;${req.body.isbn};;${req.body.title};;${req.body.author};;${req.body.quantity};;${timestamp}`
+  ]);
+
+  await redis.client.quit();
 
   return res.json({'success': true})
 });
@@ -39,9 +50,29 @@ app.get('/orders/last', async (req, res) => {
 });
 
 app.get('/orders/history', async (req, res) => {
+  const orderList = [];
+
+  await redis.client.connect();
+  const results = await redis.client.zRangeByScore('orders', 1, '+inf');
+
+  for (const result of results) {
+    const orderSplit = result.split(';;');
+    orderList.push({
+      id: orderSplit[0],
+      isbn: orderSplit[1],
+      title: orderSplit[2],
+      author: orderSplit[3],
+      quantity: parseInt(orderSplit[4]),
+      timestamp: parseInt(orderSplit[5])
+    })
+  }
+
+  await redis.client.quit();
+
   return res.json({
-    orderList: []
+    orderList
   })
+
 });
 
 app.get('/', (req, res) => {

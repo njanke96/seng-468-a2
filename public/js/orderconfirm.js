@@ -19,7 +19,9 @@
            bookTitle.innerText = data.title;
            bookAuthor.innerText = data.author;
            orderQuantity.innerText = '' + data.quantity;
-           orderTime.innerText = data.timestamp;
+
+           const date = new Date(data.timestamp * 1000);
+           orderTime.innerText = date.toLocaleString();
 
            loading.classList.add("is-hidden");
            orderInfo.classList.remove("is-hidden");
